@@ -47,9 +47,9 @@ stop_stage=3
 
 echo "We will download the LibriTTS dataset by default. If the downloading fails or you want to download the dataset yourself, see the comments in this script for steps."
 
-dl_dir=$PWD/self-collect-dataset
+dl_dir=$PWD/download
 
-dataset_parts="-p dev-clean"  # debug
+dataset_parts="-p dev-clean -p test-clean"  # debug
 # dataset_parts="--dataset-parts all"  # all
 
 audio_extractor="Encodec"  # or Fbank
