@@ -47,9 +47,9 @@ stop_stage=3
 
 echo "We will download the LibriTTS dataset by default. If the downloading fails or you want to download the dataset yourself, see the comments in this script for steps."
 
-dl_dir=$PWD/self-collect-dataset
+dl_dir=$PWD/download
 
-dataset_parts="-p dev-clean"  # debug
+dataset_parts="-p dev-clean -p test-clean"  # debug
 # dataset_parts="--dataset-parts all"  # all
 
 audio_extractor="Encodec"  # or Fbank
@@ -68,20 +68,20 @@ log() {
   echo -e "$(date '+%Y-%m-%d %H:%M:%S') (${fname}:${BASH_LINENO[0]}:${FUNCNAME[1]}) $*"
 }
 
-# if [ $stage -le 0 ] && [ $stop_stage -ge 0 ]; then
-#   log "dl_dir: $dl_dir"
-#   log "Stage 0: Download data"
+if [ $stage -le 0 ] && [ $stop_stage -ge 0 ]; then
+  log "dl_dir: $dl_dir"
+  log "Stage 0: Download data"
 
-#   # If you have pre-downloaded it to /path/to/LibriTTS,
-#   # you can create a symlink
-#   #
-#   #   ln -sfv /path/to/LibriTTS $dl_dir/LibriTTS
-#   #
-#   if [ ! -d $dl_dir/LibriTTS/dev-other ]; then
-#     # lhotse download libritts $dl_dir
-#     lhotse download libritts ${dataset_parts} $dl_dir
-#   fi
-# fi
+  # If you have pre-downloaded it to /path/to/LibriTTS,
+  # you can create a symlink
+  #
+  #   ln -sfv /path/to/LibriTTS $dl_dir/LibriTTS
+  #
+  if [ ! -d $dl_dir/LibriTTS/dev-other ]; then
+    # lhotse download libritts $dl_dir
+    lhotse download libritts ${dataset_parts} $dl_dir
+  fi
+fi
 
 if [ $stage -le 1 ] && [ $stop_stage -ge 1 ]; then
   log "Stage 1: Prepare LibriTTS manifest"
