@@ -19,7 +19,7 @@ def m4a_to_wav():
             else:
                 output_file = os.path.join(dst_folder, f'14_7_{file_index}.wav')
             # Use subprocess to run FFmpeg to convert the file
-            cmd = ['ffmpeg', '-i', input_file, '-acodec', 'pcm_s16le', '-ar', '24000', output_file]
+            cmd = ['ffmpeg', '-i', input_file, '-ac', '1', '-ar', '24000', output_file]
             try:
                 subprocess.run(cmd, check=True)
                 print(f"Converted {input_file} to {output_file}")
@@ -93,7 +93,7 @@ def create_txt_transcriptions():
 
 
 if __name__ == '__main__':
-    #m4a_to_wav()
+    m4a_to_wav()
     create_txt_transcriptions()
 
             

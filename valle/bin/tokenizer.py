@@ -168,7 +168,14 @@ def main():
                 )
             except Exception:
                 cut_set = m["cuts"]
-
+            
+            for cut in cut_set:
+                print(type(cut))
+                print(f"id {cut.id} start {cut.start} duration {cut.duration} sampling_rate{cut.sampling_rate} \
+                      supervisions len {len(cut.supervisions)},num_samples {cut.num_samples}")
+                print(f"channels {cut.channel}")
+                print(f"audio shape {cut.load_audio().shape}")
+                break
             # AudioTokenizer
             if args.audio_extractor:
                 if args.audio_extractor == "Encodec":
