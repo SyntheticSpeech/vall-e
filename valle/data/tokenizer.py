@@ -321,10 +321,17 @@ class AudioTokenExtractor(FeatureExtractor):
         padded_tensor = torch.nn.utils.rnn.pad_sequence(
             tensor_list, batch_first=True, padding_value=padding_value
         )
+        # print(padded_tensor.shape)
+        # padded_tensor = torch.stack([t.T for t in padded_tensor])
+        # print(padded_tensor.shape)
         return padded_tensor, lengths
 
     def extract_batch(self, samples, sampling_rate, lengths) -> np.ndarray:
+        print(samples[0].shape)
+        print(samples[0].squeeze().shape)
         samples = [wav.squeeze() for wav in samples]
+        print(len(samples))
+        print(samples[0].shape)
         device = self.tokenizer.device
         samples, lengths = self.pad_tensor_list(samples, device)
         samples = samples.unsqueeze(1)
